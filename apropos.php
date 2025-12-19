@@ -1,3 +1,7 @@
+<?php
+session_start();  // Démarrer la session pour accéder aux variables de session
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,16 +12,24 @@
 </head>
 <body>
     <header>
-    <nav>
-      <h1 class="logo">Départ(ement)</h1>
-      <ul>
-        <li><a href="accueil.php">Accueil</a> </li>
-        <li><a href="carte.php">Carte</a></li>
-        <li class="active">À propos</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+        <nav>
+            <h1 class="logo">Départ(ement)</h1>
+            <ul>
+                <li><a href="accueil.php">Accueil</a></li>
+                <li><a href="carte.php">Carte</a></li>
+                <li class="active">À propos</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="mes_favoris.php">Mes favoris</a></li> <!-- Lien "Mes favoris" -->
+
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <li><a href="logout.php">Se déconnecter</a></li> <!-- Si l'utilisateur est connecté, afficher "Se déconnecter" -->
+                <?php else: ?>
+                    <li><a href="login.php">Se connecter</a></li> <!-- Si l'utilisateur n'est pas connecté, afficher "Se connecter" -->
+                    <li><a href="signup.php">S'inscrire</a></li> <!-- Et "S'inscrire" -->
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </header>
 
     <div class="container">
         <div class="hero">

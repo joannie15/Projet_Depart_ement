@@ -154,8 +154,15 @@ try {
         <ul>
             <li><a href="accueil.php">Accueil</a></li>
             <li><a href="carte.php">Carte</a></li>
-            <li><a href="apropos.html">À propos</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="apropos.php">À propos</a></li>
+            <li><a href="contact.php">Contact</a></li>
+            <li><a href="mes_favoris.php">Mes favoris</a></li>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <li><a href="logout.php">Se déconnecter</a></li>
+            <?php else: ?>
+                <li><a href="login.php">Se connecter</a></li>
+                <li><a href="signup.php">S'inscrire</a></li>
+            <?php endif; ?>
         </ul>
         </nav>
     </header>

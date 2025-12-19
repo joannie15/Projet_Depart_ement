@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,8 +17,16 @@
       <ul>
         <li class="active">Accueil </li>
         <li><a href="carte.php">Carte</a></li>
-        <li><a href="apropos.html">À propos</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="apropos.php">À propos</a></li>
+        <li><a href="contact.php">Contact</a></li>
+        <li><a href="mes_favoris.php">Mes favoris</a></li> <!-- Lien "Mes favoris" -->
+        
+        <?php if (isset($_SESSION['user_id'])): ?>
+          <li><a href="logout.php">Se déconnecter</a></li> <!-- Si connecté, afficher "Se déconnecter" -->
+        <?php else: ?>
+          <li><a href="login.php">Se connecter</a></li> <!-- Sinon afficher "Se connecter" -->
+          <li><a href="signup.php">S'inscrire</a></li> <!-- Et "S'inscrire" -->
+        <?php endif; ?>
       </ul>
     </nav>
   </header>
@@ -33,9 +45,8 @@
     </section>
   </main>
 
-    <footer>
-        <p>&copy; 2025 Départ(ement). Tous droits réservés. | Projet réalisé par des étudiantes de l'Université Paul Valéry</p>
-    </footer>
-   
+  <footer>
+    <p>&copy; 2025 Départ(ement). Tous droits réservés. | Projet réalisé par des étudiantes de l'Université Paul Valéry</p>
+  </footer>
 </body>
 </html>

@@ -2,9 +2,9 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : ven. 07 nov. 2025 à 08:49
--- Version du serveur : 9.1.0
+-- Hôte : localhost:8889
+-- Généré le : ven. 19 déc. 2025 à 02:14
+-- Version du serveur : 8.0.40
 -- Version de PHP : 8.3.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `depart(ement)`
+-- Base de données : `depart_ement`
 --
 
 -- --------------------------------------------------------
@@ -27,8 +27,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `departement`
 --
 
-DROP TABLE IF EXISTS `departement`;
-CREATE TABLE IF NOT EXISTS `departement` (
+CREATE TABLE `departement` (
   `code_dep` int NOT NULL,
   `nom_dep` varchar(23) DEFAULT NULL,
   `code_region` int DEFAULT NULL,
@@ -41,9 +40,7 @@ CREATE TABLE IF NOT EXISTS `departement` (
   `nbr_foyer_salarie` int DEFAULT NULL,
   `montant_salarie` bigint DEFAULT NULL,
   `nbr_foyer_retraite` int DEFAULT NULL,
-  `montant_retraite` bigint DEFAULT NULL,
-  PRIMARY KEY (`code_dep`),
-  KEY `code_region` (`code_region`)
+  `montant_retraite` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -158,14 +155,11 @@ INSERT INTO `departement` (`code_dep`, `nom_dep`, `code_region`, `nbr_hab`, `den
 -- Structure de la table `etablissement`
 --
 
-DROP TABLE IF EXISTS `etablissement`;
-CREATE TABLE IF NOT EXISTS `etablissement` (
+CREATE TABLE `etablissement` (
   `id_eta` int NOT NULL,
   `code_dep` int DEFAULT NULL,
   `nbr_t_eta` int DEFAULT NULL,
-  `nbr_eta_2018` int DEFAULT NULL,
-  PRIMARY KEY (`id_eta`),
-  KEY `code_dep` (`code_dep`)
+  `nbr_eta_2018` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -280,8 +274,7 @@ INSERT INTO `etablissement` (`id_eta`, `code_dep`, `nbr_t_eta`, `nbr_eta_2018`) 
 -- Structure de la table `eta_superieur`
 --
 
-DROP TABLE IF EXISTS `eta_superieur`;
-CREATE TABLE IF NOT EXISTS `eta_superieur` (
+CREATE TABLE `eta_superieur` (
   `id_eta_sup` int NOT NULL,
   `nom` varchar(198) DEFAULT NULL,
   `type d'etablissement` varchar(60) DEFAULT NULL,
@@ -290,10 +283,8 @@ CREATE TABLE IF NOT EXISTS `eta_superieur` (
   `Code postal` int DEFAULT NULL,
   `commune` varchar(29) DEFAULT NULL,
   `code_dep` int DEFAULT NULL,
-  `code_reg` int DEFAULT NULL,
-  PRIMARY KEY (`id_eta_sup`),
-  KEY `fk_eta_dep` (`code_dep`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+  `code_reg` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `eta_superieur`
@@ -9209,63 +9200,86 @@ INSERT INTO `eta_superieur` (`id_eta_sup`, `nom`, `type d'etablissement`, `statu
 (8880, 'ufr science, homme, environnement', 'unite de formation et de recherche', 'public', '117 rue du general ailleret', 97418, 'le tampon', 974, 4),
 (8881, 'ufr sciences, technologies', 'unite de formation et de recherche', 'public', '15 avenue rene cassin, campus universitaire du moufia', 97715, 'saint-denis', 974, 4),
 (8882, 'universite de la reunion', 'universite', 'public', '15 avenue rene cassin, campus universitaire du moufia', 97715, 'saint-denis', 974, 4),
-(8883, 'universite numerique des iles wallis et futuna', 'campus connecte', 'public', '', 98600, 'mata utu', 986, 0),
-(8884, 'antenne en polynesie francaise de l\'institut universitaire de technologie de bordeaux', 'institut universitaire de technologie', 'public', 'campus d\'outumaoro', 98704, 'faaa', 987, 0),
-(8885, 'archipels connectes - campus australes - tubuai', 'campus connecte', 'public', '', 98754, 'tubuai', 987, 0),
-(8886, 'archipels connectes - campus iles du vent - teva i uta', 'campus connecte', 'public', '', 98726, 'teva i uta', 987, 0),
-(8887, 'archipels connectes - campus iles sous le vent - raiatea', 'campus connecte', 'public', 'iles sous le vent', 98735, 'raiatea', 987, 0),
-(8888, 'archipels connectes - campus marquises - nuku hiva', 'campus connecte', 'public', 'marquises', 98742, 'nuku hiva', 987, 0),
-(8889, 'archipels connectes - campus tuamotu-gambier - rangiroa', 'campus connecte', 'public', 'campus tuamotu-gambier', 98776, 'rangiroa', 987, 0),
-(8890, 'centre des metiers d’arts de la polynesie francaise', 'ecole d\'art', 'public', 'avenue du regent paraita , mamao', 98713, 'papeete', 987, 0),
-(8891, 'centre des metiers de la mer de polynesie francaise', 'centre de formation professionnelle', 'prive sous contrat', 'ahutoru', 98716, 'arue', 987, 0),
-(8892, 'centre regional associe au conservatoire national des arts et metiers', 'unite de formation et de recherche', 'public', 'lycee polyvalent de taaone', 98714, 'papeete', 987, 0),
-(8893, 'departements de formation et recherche', 'unite de formation et de recherche', 'public', 'campus d\'outumaoro- punaauia', 98702, 'faaa', 987, 0),
-(8894, 'ecole de commerce de tahiti', 'ecole de gestion et de commerce', 'prive reconnu par l\'Etat', '41 rue du docteur cassiau', 98713, 'papeete', 987, 0),
-(8895, 'ecole de sages-femmes', 'ecole de sante', 'public', '', 98714, 'papeete', 987, 0),
-(8896, 'institut de formation des professions de sante mathilde frebault', 'ecole de sante', 'prive sous contrat', '156 avenue georges clemenceau mamao', 98713, 'papeete', 987, 0),
-(8897, 'institut national superieur du professorat et de l\'education de polynesie francaise', 'institut national superieur du professorat et de l\'education', 'public', 'campus d\'outumaoro', 98702, 'faaa', 987, 0),
-(8898, 'institut polynesien de formation sanitaire et sociale', 'ecole du secteur social', 'prive sous contrat', '25 rue pierre loti, immeuble vehiarii', 98713, 'papeete', 987, 0),
-(8899, 'institut superieur de l\'enseignement prive de polynesie', 'autre etablissement d\'enseignement', 'prive sous contrat', 'rue du bon pasteur, la mission', 98713, 'papeete', 987, 0),
-(8900, 'lycee des iles sous-le-vent d\'uturoa', 'lycee general, technologique ou polyvalent', 'public', '', 98735, 'uturoa', 987, 0),
-(8901, 'lycee du diademe - te tara o mai\'ao', 'lycee general, technologique ou polyvalent', 'public', 'rue tihoni tefaatau', 98716, 'pirae', 987, 0),
-(8902, 'lycee hotelier de tahiti', 'lycee general, technologique ou polyvalent', 'public', 'moana nui', 98717, 'punaauia', 987, 0),
-(8903, 'lycee la mennais', 'lycee general, technologique ou polyvalent', 'prive sous contrat', 'rue dumont d\'urville', 98713, 'papeete', 987, 0),
-(8904, 'lycee paul gauguin', 'lycee general, technologique ou polyvalent', 'public', '', 98713, 'papeete', 987, 0),
-(8905, 'lycee polyvalent de taravao a taiarapu - nui', 'lycee general, technologique ou polyvalent', 'public', 'rue john teariki', 98719, 'taiarapu-est', 987, 0),
-(8906, 'lycee polyvalent tuianu le gayic de papara', 'lycee general, technologique ou polyvalent', 'public', 'pk 382 cote montagne', 98764, 'papara', 987, 0),
-(8907, 'lycee professionnel agricole de opunohu', 'lycee agricole', 'public', 'route du belvedere, papetoai', 98728, 'moorea maiao', 987, 0),
-(8908, 'lycee professionnel de faaa', 'lycee professionnel', 'public', '', 98702, 'faaa', 987, 0),
-(8909, 'lycee professionnel prive don bosco', 'lycee professionnel', 'prive sous contrat', '216 rue de l\'abbe rougier', 98716, 'pirae', 987, 0),
-(8910, 'lycee professionnel saint-joseph punaauia', 'lycee professionnel', 'prive sous contrat', '', 98717, 'punaauia', 987, 0),
-(8911, 'lycee samuel raapoto', 'lycee general, technologique ou polyvalent', 'prive sous contrat', '13 avenue ariipaea, pomare pk3.5', 98701, 'arue', 987, 0),
-(8912, 'universite de la polynesie francaise', 'universite', 'public', 'punaauuia, campus d\'outumaoro', 98704, 'faaa', 987, 0),
-(8913, 'centre regional associe au conservatoire national des arts et metiers', 'centre de formation professionnelle', 'public', '14 rue de verdun, immeuble cci - 2e etage', 98846, 'noumea', 988, 0),
-(8914, 'cfa de la chambre de commerce et d\'industrie', 'centre de formation d\'apprentis', 'public', '14 rue de verdun, immeuble journot', 98849, 'noumea', 988, 0),
-(8915, 'ecole de gestion et de commerce du pacifique sud', 'ecole de gestion et de commerce', 'prive reconnu par l\'Etat', '14 rue de verdun', 98849, 'noumea', 988, 0),
-(8916, 'institut d\'administration des entreprises de nouvelle-caledonie', 'unite de formation et de recherche', 'public', '145 avenue james cook, campus de nouville', 98851, 'noumea', 988, 0),
-(8917, 'institut de formation des professions sanitaires et sociales de nouvelle caledonie', 'ecole de sante', 'prive sous contrat', '12 rue juliette bernard, lot 10135 pie-nouville', 98845, 'noumea', 988, 0),
-(8918, 'institut national superieur du professorat et de l\'education', 'institut national superieur du professorat et de l\'education', 'public', '125 avenue james cook, route de nouville', 98852, 'noumea', 988, 0),
-(8919, 'iut de nouvelle-caledonie', 'institut universitaire de technologie', 'public', 'avenue james cook', 98800, 'noumea', 988, 0),
-(8920, 'lycee agricole michel rocard', 'lycee agricole', 'public', '2997 route du lycee', 98825, 'pouembout', 988, 0),
-(8921, 'lycee commercial et hotelier auguste escoffier', 'lycee professionnel', 'public', '2-4 rue georges baudoux, pointe de l\'artillerie', 98845, 'noumea', 988, 0),
-(8922, 'lycee dick ukeiwe', 'lycee general, technologique ou polyvalent', 'public', '36 promenade de koutio', 98830, 'dumbea', 988, 0),
-(8923, 'lycee general et technologique antoine kela', 'lycee general, technologique ou polyvalent', 'public', 'route provinciale 3, village', 98822, 'poindimie', 988, 0),
-(8924, 'lycee la perouse', 'lycee general, technologique ou polyvalent', 'public', '5 rue georges baudoux, pointe de l\'artillerie', 98849, 'noumea', 988, 0),
-(8925, 'lycee michel rocard (formations de l\'education nationale)', 'lycee general, technologique ou polyvalent', 'public', '2997 route du lycee', 98825, 'pouembout', 988, 0),
-(8926, 'lycee polyvalent du mont-dore', 'lycee general, technologique ou polyvalent', 'public', 'avenue des deux baies, saint-michel', 98810, 'mont dore', 988, 0),
-(8927, 'lycee polyvalent jules garnier', 'lycee general, technologique ou polyvalent', 'public', 'avenue james cook, nouville', 98849, 'noumea', 988, 0),
-(8928, 'lycee prive apollinaire anova (ddec)', 'lycee general, technologique ou polyvalent', 'prive sous contrat', 'plaine de la gendarmerie', 98890, 'paita', 988, 0),
-(8929, 'lycee prive blaise pascal (ddec)', 'lycee general, technologique ou polyvalent', 'prive sous contrat', '22 rue blaise pascal, anse vata', 98807, 'noumea', 988, 0),
-(8930, 'lycee prive professionnel saint-joseph de cluny', 'lycee professionnel', 'prive sous contrat', '45 rue de l\'alma', 98807, 'noumea', 988, 0),
-(8931, 'lycee professionnel et hotelier prive jean xxiii', 'lycee professionnel', 'prive sous contrat', 'route du mont mou', 98890, 'paita', 988, 0),
-(8932, 'lycee professionnel petro attiti', 'lycee professionnel', 'public', '15 rue teilhard de chardin, riviere salee', 98849, 'noumea', 988, 0),
-(8933, 'lycee professionnel prive francois-d\'assise', 'lycee professionnel', 'prive sous contrat', '25 rue pie era', 98870, 'bourail', 988, 0),
-(8934, 'lycee professionnel prive marcellin champagnat (ddec)', 'lycee professionnel', 'prive sous contrat', 'route territoriale 1', 98890, 'paita', 988, 0),
-(8935, 'lycee professionnel prive saint-pierre chanel', 'lycee professionnel', 'prive sous contrat', '538 rue charles beautemps-beaupre, la conception', 98810, 'mont dore', 988, 0),
-(8936, 'ufr des sciences et techniques', 'unite de formation et de recherche', 'public', '145 avenue james cook, site de nouville', 98800, 'noumea', 988, 0),
-(8937, 'ufr droit, economie et gestion', 'unite de formation et de recherche', 'public', '145 avenue james cook, site de nouville', 98847, 'noumea', 988, 0),
-(8938, 'ufr lettres, langues et sciences humaines', 'unite de formation et de recherche', 'public', '59 rue roger gervolino- aerodrome, site de magenta', 98851, 'noumea', 988, 0),
-(8939, 'universite de nouvelle caledonie', 'universite', 'public', '145 avenue james cook, nouville', 98851, 'noumea', 988, 0);
+(8883, 'universite numerique des iles wallis et futuna', 'campus connecte', 'public', '', 98600, 'mata utu', NULL, NULL),
+(8884, 'antenne en polynesie francaise de l\'institut universitaire de technologie de bordeaux', 'institut universitaire de technologie', 'public', 'campus d\'outumaoro', 98704, 'faaa', NULL, NULL),
+(8885, 'archipels connectes - campus australes - tubuai', 'campus connecte', 'public', '', 98754, 'tubuai', NULL, NULL),
+(8886, 'archipels connectes - campus iles du vent - teva i uta', 'campus connecte', 'public', '', 98726, 'teva i uta', NULL, NULL),
+(8887, 'archipels connectes - campus iles sous le vent - raiatea', 'campus connecte', 'public', 'iles sous le vent', 98735, 'raiatea', NULL, NULL),
+(8888, 'archipels connectes - campus marquises - nuku hiva', 'campus connecte', 'public', 'marquises', 98742, 'nuku hiva', NULL, NULL),
+(8889, 'archipels connectes - campus tuamotu-gambier - rangiroa', 'campus connecte', 'public', 'campus tuamotu-gambier', 98776, 'rangiroa', NULL, NULL),
+(8890, 'centre des metiers d’arts de la polynesie francaise', 'ecole d\'art', 'public', 'avenue du regent paraita , mamao', 98713, 'papeete', NULL, NULL),
+(8891, 'centre des metiers de la mer de polynesie francaise', 'centre de formation professionnelle', 'prive sous contrat', 'ahutoru', 98716, 'arue', NULL, NULL),
+(8892, 'centre regional associe au conservatoire national des arts et metiers', 'unite de formation et de recherche', 'public', 'lycee polyvalent de taaone', 98714, 'papeete', NULL, NULL),
+(8893, 'departements de formation et recherche', 'unite de formation et de recherche', 'public', 'campus d\'outumaoro- punaauia', 98702, 'faaa', NULL, NULL),
+(8894, 'ecole de commerce de tahiti', 'ecole de gestion et de commerce', 'prive reconnu par l\'Etat', '41 rue du docteur cassiau', 98713, 'papeete', NULL, NULL),
+(8895, 'ecole de sages-femmes', 'ecole de sante', 'public', '', 98714, 'papeete', NULL, NULL),
+(8896, 'institut de formation des professions de sante mathilde frebault', 'ecole de sante', 'prive sous contrat', '156 avenue georges clemenceau mamao', 98713, 'papeete', NULL, NULL),
+(8897, 'institut national superieur du professorat et de l\'education de polynesie francaise', 'institut national superieur du professorat et de l\'education', 'public', 'campus d\'outumaoro', 98702, 'faaa', NULL, NULL),
+(8898, 'institut polynesien de formation sanitaire et sociale', 'ecole du secteur social', 'prive sous contrat', '25 rue pierre loti, immeuble vehiarii', 98713, 'papeete', NULL, NULL),
+(8899, 'institut superieur de l\'enseignement prive de polynesie', 'autre etablissement d\'enseignement', 'prive sous contrat', 'rue du bon pasteur, la mission', 98713, 'papeete', NULL, NULL),
+(8900, 'lycee des iles sous-le-vent d\'uturoa', 'lycee general, technologique ou polyvalent', 'public', '', 98735, 'uturoa', NULL, NULL),
+(8901, 'lycee du diademe - te tara o mai\'ao', 'lycee general, technologique ou polyvalent', 'public', 'rue tihoni tefaatau', 98716, 'pirae', NULL, NULL),
+(8902, 'lycee hotelier de tahiti', 'lycee general, technologique ou polyvalent', 'public', 'moana nui', 98717, 'punaauia', NULL, NULL),
+(8903, 'lycee la mennais', 'lycee general, technologique ou polyvalent', 'prive sous contrat', 'rue dumont d\'urville', 98713, 'papeete', NULL, NULL),
+(8904, 'lycee paul gauguin', 'lycee general, technologique ou polyvalent', 'public', '', 98713, 'papeete', NULL, NULL),
+(8905, 'lycee polyvalent de taravao a taiarapu - nui', 'lycee general, technologique ou polyvalent', 'public', 'rue john teariki', 98719, 'taiarapu-est', NULL, NULL),
+(8906, 'lycee polyvalent tuianu le gayic de papara', 'lycee general, technologique ou polyvalent', 'public', 'pk 382 cote montagne', 98764, 'papara', NULL, NULL),
+(8907, 'lycee professionnel agricole de opunohu', 'lycee agricole', 'public', 'route du belvedere, papetoai', 98728, 'moorea maiao', NULL, NULL),
+(8908, 'lycee professionnel de faaa', 'lycee professionnel', 'public', '', 98702, 'faaa', NULL, NULL),
+(8909, 'lycee professionnel prive don bosco', 'lycee professionnel', 'prive sous contrat', '216 rue de l\'abbe rougier', 98716, 'pirae', NULL, NULL),
+(8910, 'lycee professionnel saint-joseph punaauia', 'lycee professionnel', 'prive sous contrat', '', 98717, 'punaauia', NULL, NULL),
+(8911, 'lycee samuel raapoto', 'lycee general, technologique ou polyvalent', 'prive sous contrat', '13 avenue ariipaea, pomare pk3.5', 98701, 'arue', NULL, NULL),
+(8912, 'universite de la polynesie francaise', 'universite', 'public', 'punaauuia, campus d\'outumaoro', 98704, 'faaa', NULL, NULL),
+(8913, 'centre regional associe au conservatoire national des arts et metiers', 'centre de formation professionnelle', 'public', '14 rue de verdun, immeuble cci - 2e etage', 98846, 'noumea', NULL, NULL),
+(8914, 'cfa de la chambre de commerce et d\'industrie', 'centre de formation d\'apprentis', 'public', '14 rue de verdun, immeuble journot', 98849, 'noumea', NULL, NULL),
+(8915, 'ecole de gestion et de commerce du pacifique sud', 'ecole de gestion et de commerce', 'prive reconnu par l\'Etat', '14 rue de verdun', 98849, 'noumea', NULL, NULL),
+(8916, 'institut d\'administration des entreprises de nouvelle-caledonie', 'unite de formation et de recherche', 'public', '145 avenue james cook, campus de nouville', 98851, 'noumea', NULL, NULL),
+(8917, 'institut de formation des professions sanitaires et sociales de nouvelle caledonie', 'ecole de sante', 'prive sous contrat', '12 rue juliette bernard, lot 10135 pie-nouville', 98845, 'noumea', NULL, NULL),
+(8918, 'institut national superieur du professorat et de l\'education', 'institut national superieur du professorat et de l\'education', 'public', '125 avenue james cook, route de nouville', 98852, 'noumea', NULL, NULL),
+(8919, 'iut de nouvelle-caledonie', 'institut universitaire de technologie', 'public', 'avenue james cook', 98800, 'noumea', NULL, NULL),
+(8920, 'lycee agricole michel rocard', 'lycee agricole', 'public', '2997 route du lycee', 98825, 'pouembout', NULL, NULL),
+(8921, 'lycee commercial et hotelier auguste escoffier', 'lycee professionnel', 'public', '2-4 rue georges baudoux, pointe de l\'artillerie', 98845, 'noumea', NULL, NULL),
+(8922, 'lycee dick ukeiwe', 'lycee general, technologique ou polyvalent', 'public', '36 promenade de koutio', 98830, 'dumbea', NULL, NULL),
+(8923, 'lycee general et technologique antoine kela', 'lycee general, technologique ou polyvalent', 'public', 'route provinciale 3, village', 98822, 'poindimie', NULL, NULL),
+(8924, 'lycee la perouse', 'lycee general, technologique ou polyvalent', 'public', '5 rue georges baudoux, pointe de l\'artillerie', 98849, 'noumea', NULL, NULL),
+(8925, 'lycee michel rocard (formations de l\'education nationale)', 'lycee general, technologique ou polyvalent', 'public', '2997 route du lycee', 98825, 'pouembout', NULL, NULL),
+(8926, 'lycee polyvalent du mont-dore', 'lycee general, technologique ou polyvalent', 'public', 'avenue des deux baies, saint-michel', 98810, 'mont dore', NULL, NULL),
+(8927, 'lycee polyvalent jules garnier', 'lycee general, technologique ou polyvalent', 'public', 'avenue james cook, nouville', 98849, 'noumea', NULL, NULL),
+(8928, 'lycee prive apollinaire anova (ddec)', 'lycee general, technologique ou polyvalent', 'prive sous contrat', 'plaine de la gendarmerie', 98890, 'paita', NULL, NULL),
+(8929, 'lycee prive blaise pascal (ddec)', 'lycee general, technologique ou polyvalent', 'prive sous contrat', '22 rue blaise pascal, anse vata', 98807, 'noumea', NULL, NULL),
+(8930, 'lycee prive professionnel saint-joseph de cluny', 'lycee professionnel', 'prive sous contrat', '45 rue de l\'alma', 98807, 'noumea', NULL, NULL),
+(8931, 'lycee professionnel et hotelier prive jean xxiii', 'lycee professionnel', 'prive sous contrat', 'route du mont mou', 98890, 'paita', NULL, NULL),
+(8932, 'lycee professionnel petro attiti', 'lycee professionnel', 'public', '15 rue teilhard de chardin, riviere salee', 98849, 'noumea', NULL, NULL),
+(8933, 'lycee professionnel prive francois-d\'assise', 'lycee professionnel', 'prive sous contrat', '25 rue pie era', 98870, 'bourail', NULL, NULL),
+(8934, 'lycee professionnel prive marcellin champagnat (ddec)', 'lycee professionnel', 'prive sous contrat', 'route territoriale 1', 98890, 'paita', NULL, NULL),
+(8935, 'lycee professionnel prive saint-pierre chanel', 'lycee professionnel', 'prive sous contrat', '538 rue charles beautemps-beaupre, la conception', 98810, 'mont dore', NULL, NULL),
+(8936, 'ufr des sciences et techniques', 'unite de formation et de recherche', 'public', '145 avenue james cook, site de nouville', 98800, 'noumea', NULL, NULL),
+(8937, 'ufr droit, economie et gestion', 'unite de formation et de recherche', 'public', '145 avenue james cook, site de nouville', 98847, 'noumea', NULL, NULL),
+(8938, 'ufr lettres, langues et sciences humaines', 'unite de formation et de recherche', 'public', '59 rue roger gervolino- aerodrome, site de magenta', 98851, 'noumea', NULL, NULL),
+(8939, 'universite de nouvelle caledonie', 'universite', 'public', '145 avenue james cook, nouville', 98851, 'noumea', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `favoris`
+--
+
+CREATE TABLE `favoris` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `code_dep` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `favoris`
+--
+
+INSERT INTO `favoris` (`id`, `user_id`, `code_dep`) VALUES
+(86, 1, 26),
+(87, 1, 10),
+(88, 1, 8),
+(89, 1, 61),
+(90, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -9273,15 +9287,12 @@ INSERT INTO `eta_superieur` (`id_eta_sup`, `nom`, `type d'etablissement`, `statu
 -- Structure de la table `logement`
 --
 
-DROP TABLE IF EXISTS `logement`;
-CREATE TABLE IF NOT EXISTS `logement` (
+CREATE TABLE `logement` (
   `Id_log` int NOT NULL,
   `code_dep` int DEFAULT NULL,
   `nbr_log` int DEFAULT NULL,
   `taux_log_sociaux` float(6,1) DEFAULT NULL,
-  `taux_log_ind` float(6,1) DEFAULT NULL,
-  PRIMARY KEY (`Id_log`),
-  KEY `code_dep` (`code_dep`)
+  `taux_log_ind` float(6,1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -9396,11 +9407,9 @@ INSERT INTO `logement` (`Id_log`, `code_dep`, `nbr_log`, `taux_log_sociaux`, `ta
 -- Structure de la table `region`
 --
 
-DROP TABLE IF EXISTS `region`;
-CREATE TABLE IF NOT EXISTS `region` (
+CREATE TABLE `region` (
   `code_region` int NOT NULL,
-  `nom_region` varchar(26) DEFAULT NULL,
-  PRIMARY KEY (`code_region`)
+  `nom_region` varchar(26) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -9426,6 +9435,98 @@ INSERT INTO `region` (`code_region`, `nom_region`) VALUES
 (93, 'provence-alpes-cote d\'azur'),
 (94, 'corse');
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+CREATE TABLE `utilisateur` (
+  `id_utilisateur` int NOT NULL,
+  `nom` varchar(255) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `mot_de_passe` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id_utilisateur`, `nom`, `prenom`, `mot_de_passe`, `email`, `created_at`) VALUES
+(1, 'Gateka', 'Diella', '$2y$10$IN9jJSI.3dbpguVBSgyhjO8dU4dgF/FV7gAo7CWvRbzOfmwwcIPh6', 'gatekadiella@gmail.com', '2025-12-17 14:53:07');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `departement`
+--
+ALTER TABLE `departement`
+  ADD PRIMARY KEY (`code_dep`),
+  ADD KEY `code_region` (`code_region`);
+
+--
+-- Index pour la table `etablissement`
+--
+ALTER TABLE `etablissement`
+  ADD PRIMARY KEY (`id_eta`),
+  ADD KEY `code_dep` (`code_dep`);
+
+--
+-- Index pour la table `eta_superieur`
+--
+ALTER TABLE `eta_superieur`
+  ADD PRIMARY KEY (`id_eta_sup`),
+  ADD KEY `fk_eta_dep` (`code_dep`),
+  ADD KEY `fk_eta_sup_region` (`code_reg`);
+
+--
+-- Index pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `code_dep` (`code_dep`);
+
+--
+-- Index pour la table `logement`
+--
+ALTER TABLE `logement`
+  ADD PRIMARY KEY (`Id_log`),
+  ADD KEY `code_dep` (`code_dep`);
+
+--
+-- Index pour la table `region`
+--
+ALTER TABLE `region`
+  ADD PRIMARY KEY (`code_region`);
+
+--
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`id_utilisateur`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `id_utilisateur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Contraintes pour les tables déchargées
 --
@@ -9443,10 +9544,24 @@ ALTER TABLE `etablissement`
   ADD CONSTRAINT `etablissement_ibfk_1` FOREIGN KEY (`code_dep`) REFERENCES `departement` (`code_dep`);
 
 --
+-- Contraintes pour la table `eta_superieur`
+--
+ALTER TABLE `eta_superieur`
+  ADD CONSTRAINT `fk_eta_sup_departement` FOREIGN KEY (`code_dep`) REFERENCES `departement` (`code_dep`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_eta_sup_region` FOREIGN KEY (`code_reg`) REFERENCES `region` (`code_region`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `favoris`
+--
+ALTER TABLE `favoris`
+  ADD CONSTRAINT `favoris_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id_utilisateur`) ON DELETE CASCADE,
+  ADD CONSTRAINT `favoris_ibfk_2` FOREIGN KEY (`code_dep`) REFERENCES `departement` (`code_dep`) ON DELETE CASCADE;
+
+--
 -- Contraintes pour la table `logement`
 --
 ALTER TABLE `logement`
-  ADD CONSTRAINT `logement_ibfk_1` FOREIGN KEY (`code_dep`) REFERENCES `departement` (`code_dep`);
+  ADD CONSTRAINT `fk_logement_departement` FOREIGN KEY (`code_dep`) REFERENCES `departement` (`code_dep`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

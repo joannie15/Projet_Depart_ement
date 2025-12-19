@@ -1,3 +1,10 @@
+<?php
+session_start(); // Démarrage de la session pour la gestion de la connexion de l'utilisateur
+
+// Vérification si l'utilisateur est connecté
+$is_connected = isset($_SESSION['user_id']);
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,12 +31,20 @@
     <ul>
       <li><a href="accueil.php">Accueil</a></li>
       <li class="active">Carte</li>
-      <li><a href="apropos.html">À propos</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="apropos.php">À propos</a></li>
+      <li><a href="contact.php">Contact</a></li>
+      <li><a href="mes_favoris.php">Mes favoris</a></li> <!-- Lien "Mes favoris" -->
+
+      <!-- Vérification de la session utilisateur -->
+      <?php if ($is_connected): ?>
+        <li><a href="logout.php">Se déconnecter</a></li> <!-- Si connecté, afficher "Se déconnecter" -->
+      <?php else: ?>
+        <li><a href="login.php">Se connecter</a></li> <!-- Sinon afficher "Se connecter" -->
+        <li><a href="signup.php">S'inscrire</a></li> <!-- Et "S'inscrire" -->
+      <?php endif; ?>
     </ul>
   </nav>
 </header>
-
 
 <main>
   <section class="carte-section">
@@ -41,7 +56,6 @@
   </section>
 </main>
 
-
 <!-- PANEL LATÉRAL -->
 <div id="side-panel" class="side-panel">
   <button id="close-panel">×</button>
@@ -50,10 +64,7 @@
   </div>
 </div>
 
-
-
 <script>
-
 // INITIALISATION DE LA CARTE LEAFLET
 
 var map = L.map('map', {
@@ -69,16 +80,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-// chrge du fichier geojson localement
-
+// Charge du fichier geojson localement
 $.getJSON('data/departements.geojson', function (geojson) {
-
   L.geoJSON(geojson, {
-
     onEachFeature: function (feature, layer) {
-
       layer.on('click', function () {
-
         let code_geo = feature.properties.code;
         let code_dep;
 
@@ -91,33 +97,24 @@ $.getJSON('data/departements.geojson', function (geojson) {
           method: 'POST',
           data: { code_dep: code_dep },
           success: function (data) {
-            console.log("Réponse AJAX :", data);
             showPanel(data);
           },
           error: function(err) {
-            console.log("Erreur AJAX :", err);
             showPanel("<p>Erreur lors de la récupération des données.</p>");
           }
         });
-
       });
-
     },
-
     style: {
       color: "#333",
       weight: 1,
       fillColor: "#88c",
       fillOpacity: 0.5
     }
-
   }).addTo(map);
-
 });
 
-
 // PANEL LATÉRAL
-
 const panel = document.getElementById('side-panel');
 const content = document.getElementById('panel-content');
 const closeBtn = document.getElementById('close-panel');
@@ -130,11 +127,10 @@ function showPanel(data) {
   content.innerHTML = data;
   panel.classList.add('open');
 }
-
 </script>
 
 <footer>
-        <p>&copy; 2025 Départ(ement). Tous droits réservés. | Projet réalisé par des étudiantes de l'Université Paul Valéry</p>
+  <p>&copy; 2025 Départ(ement). Tous droits réservés. | Projet réalisé par des étudiantes de l'Université Paul Valéry</p>
 </footer>
 
 </body>
