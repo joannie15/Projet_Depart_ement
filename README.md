@@ -4,7 +4,7 @@ Ce projet s’inscrit dans le cadre d’un travail universitaire portant sur la 
 
 Le projet repose sur l’utilisation de technologies web telles que HTML, CSS, PHP et MySQL, avec une gestion locale via MAMP et un versionnement sur GitHub.
 
-# Objectifs
+## Objectifs
 - structurer les données dans une base de données
 - développer une interface de consultation
 - permettre l’affichage d’informations par département
